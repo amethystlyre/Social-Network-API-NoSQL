@@ -14,19 +14,16 @@ const thoughtSchema = new Schema(
       minLength: 1,
       maxLength: 280,
     },
-    username: [{
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },],
+    username: {
+        type: String,
+        required: true,
+    },
     createdAt: {
         type: Date,
         default: Date.now(),
         //get: dateConverter,
     },
-    reactions:[      {
-        type: Schema.Types.ObjectId,
-        ref: 'reaction',
-      },],
+    reactions:[reactionSchema],
   },
   {
     toJSON: {

@@ -39,14 +39,14 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+  //update user details
   async updateUser(req, res) {
     try {
       //console.log(req.body)
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { ...req.body },
-        { new: true }
+        { $set: {...req.body} },
+        { runValidators: true, new: true }
       );
       
       if (!user) {
@@ -61,7 +61,7 @@ module.exports = {
   },
 
 
-  // Delete a User and user thoughts
+  // Delete a User
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndDelete({ _id: req.params.userId });
@@ -79,8 +79,8 @@ module.exports = {
     // add friend
     async addFriend(req, res) {
       try {
-        console.log(req.params.userId);
-        console.log(req.params.friendId);
+        //console.log(req.params.userId);
+        //console.log(req.params.friendId);
         const user = await User.findOneAndUpdate(
           { _id: req.params.userId },
           { $addToSet: { friends: req.params.friendId } },
