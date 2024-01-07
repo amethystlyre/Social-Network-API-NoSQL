@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const {dateConverter} = require('../utils/helper')
+const {dateConverter,validateEmail} = require('../utils/helper')
 
 
 const userSchema = new Schema(
@@ -12,8 +12,10 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
-      unique: true
+      required: 'Email address is required',
+      unique: true,
+      trim: true,
+      validate: [validateEmail, 'Please fill a valid email address'],
     },
     createdAt:  {
         type: Date,
