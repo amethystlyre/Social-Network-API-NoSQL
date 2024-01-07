@@ -19,7 +19,7 @@ const reactionSchema = new Schema(
     createdAt:  {
         type: Date,
         default: Date.now,
-        get: dateConverter,
+        get: dateConverter,//convert date format
     },
   },
   {

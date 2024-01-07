@@ -2,6 +2,7 @@ const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 module.exports = {
+  //Get all users
   async getUsers(req, res) {
     try {
       const users = await User.find();
@@ -76,7 +77,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-    // add friend
+    //Add a friend
     async addFriend(req, res) {
       try {
         //console.log(req.params.userId);
@@ -97,7 +98,7 @@ module.exports = {
         res.status(500).json(err);
       }
     },
-        // delete friend
+        //Delete a friend
         async deleteFriend(req, res) {
           try {
             const user = await User.findOneAndUpdate(

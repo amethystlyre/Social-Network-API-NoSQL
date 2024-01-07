@@ -30,6 +30,7 @@ const thoughtSchema = new Schema(
   }
 );
 
+//count number of reactions for each thought
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
   });

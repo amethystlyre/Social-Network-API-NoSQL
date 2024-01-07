@@ -2,6 +2,7 @@ const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 module.exports = {
+  //Get all thoughts
   async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
@@ -62,7 +63,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  //update thought details
+  //Update thought details
   async updateThought(req, res) {
     try {
       //console.log(req.body)
@@ -76,14 +77,14 @@ module.exports = {
         return res.status(404).json({ message: "No such thought exists" });
       }
 
-      res.json({ message: "thought successfully updated",...thought });
+      res.json({ message: "Thought successfully updated",...thought });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
 
-  // Delete a thought and thought thoughts
+  // Delete a thought
   async deleteThought(req, res) {
     try {
       const thought = await Thought.findOneAndDelete({
@@ -99,13 +100,13 @@ module.exports = {
         { $pull: { thoughts: req.params.thoughtId } }
       );
 
-      res.json({ message: "thought successfully deleted" });
+      res.json({ message: "Thought successfully deleted" });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
     }
   },
-  // add reaction
+  // add reaction to thought
   async addReaction(req, res) {
     try {
       //console.log(req.params.thoughtId);
@@ -140,7 +141,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // delete reaction
+  // remove reaction to thought
   async deleteReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
@@ -155,7 +156,7 @@ module.exports = {
           .json({ message: "No thought found with that ID :(" });
       }
 
-      res.json({ message: "reaction successfully deleted" });
+      res.json({ message: "Reaction successfully deleted" });
     } catch (err) {
       res.status(500).json(err);
     }
