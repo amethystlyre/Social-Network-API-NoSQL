@@ -1,10 +1,7 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
+const {dateConverter} = require('../utils/helper')
 
-const dateConverter = (date)=>{
-    return date;
-
-  }
 
 const thoughtSchema = new Schema(
   {
@@ -20,8 +17,8 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
         type: Date,
-        default: Date.now(),
-        //get: dateConverter,
+        default: Date.now,
+        get: dateConverter,
     },
     reactions:[reactionSchema],
   },

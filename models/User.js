@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const {dateConverter} = require('../utils/helper')
 
 
 const userSchema = new Schema(
@@ -7,6 +8,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      trim: true
     },
     email: {
       type: String,
@@ -15,8 +17,8 @@ const userSchema = new Schema(
     },
     createdAt:  {
         type: Date,
-        default: Date.now(),
-        //get: dateConverter,
+        default: Date.now,
+        get: dateConverter,
     },
     thoughts: [{
         type: Schema.Types.ObjectId,
@@ -30,13 +32,15 @@ const userSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters:true,
     },
   }
 );
 
-userSchema.pre('save', function() {
-    return this.username.trim();
+userSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
   });
+
 
 const User = model('user', userSchema);
 
